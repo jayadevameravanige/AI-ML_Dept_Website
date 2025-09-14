@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIML Department - Future Forward</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #3d1515; /* Dark maroon base */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%235b1f1f' fill-opacity='0.2'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            color: #e2e8f0;
+        }
+        .hero-bg {
+            background-color: #4a1919;
+            background-image:
+                radial-gradient(at 47% 33%, hsl(0, 50%, 15%) 0, transparent 59%),
+                radial-gradient(at 82% 65%, hsl(0, 40%, 10%) 0, transparent 55%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid #ecc35c/20;
+            border-radius: 1rem;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-12px) scale(1.06);
+            box-shadow: 0 0 40px rgba(236, 195, 92, 0.8);
+            border-color: #ecc35c;
+        }
+        .typewriter-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: #ecc35c;
+            animation: blink 1s infinite;
+            margin-left: 4px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(to bottom, #ecc35c, #f7f3b7, #ecc35c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .btn-gradient {
+             background-image: linear-gradient(to right, #ecc35c, #f7f3b7, #ecc35c);
+             background-size: 200% auto;
+             transition: background-position 0.5s;
+        }
+
+        .btn-gradient:hover {
+            background-position: right center;
+        }
+
+        header {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .header-scrolled {
+            background-color: #5b1f1f/80;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        .faculty-card {
+            overflow: hidden;
+        }
+        .faculty-card img {
+            transition: transform 0.4s ease;
+        }
+        .faculty-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .glass-card .animated-icon {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card:hover .animated-icon {
+            transform: rotate(15deg) scale(1.2);
+        }
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+            z-index: 1;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 0.375rem; /* rounded-md */
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.2s ease-in-out;
+            z-index: -1;
+        }
+        .nav-link:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body class="antialiased" id="top">
+    <canvas id="particle-canvas" class="fixed top-0 left-0 w-full h-full z-[-1]"></canvas>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#5b1f1f]/30 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-white">
+                    <a href="index.html" class="text-2xl font-bold text-white">
+                    <span class="text-gradient">AI</span>ML Dept.
+                </div>
+                <nav class="hidden md:flex items-center space-x-2">
+                    <a href="#about" class="nav-link text-slate-300 hover:text-[#ecc35c]">About</a>
+                    <a href="#programs" class="nav-link text-slate-300 hover:text-[#ecc35c]">Programs</a>
+                    <a href="#research" class="nav-link text-slate-300 hover:text-[#ecc35c]">Research</a>
+                    <!-- Faculty Dropdown -->
+                    <div class="relative dropdown">
+                        <button class="nav-link text-slate-300 hover:text-[#ecc35c] flex items-center">
+                            Faculty
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-[#5b1f1f]/80 backdrop-blur-lg rounded-lg shadow-xl overflow-hidden border border-[#ecc35c]/30">
+                            <a href="hod.html" class="block px-4 py-2 text-sm text-slate-300 hover:bg-[#ecc35c]/20 hover:text-[#ecc35c] transition-colors">Head of the Department</a>
+                            <a href="assprof.html" class="block px-4 py-2 text-sm text-slate-300 hover:bg-[#ecc35c]/20 hover:text-[#ecc35c] transition-colors">Assistant Professors</a>
+                            <a href="labtechnatt.html" class="block px-4 py-2 text-sm text-slate-300 hover:bg-[#ecc35c]/20 hover:text-[#ecc35c] transition-colors">Lab Technicians & Attenders</a>
+                        </div>
+                    </div>
+                    <a href="#" class="nav-link text-slate-300 hover:text-[#ecc35c]">Rooms</a>
+                    <a href="https://gmu.ac.in/public/admission-card/branch/ai.html" class="btn-gradient text-[#5b1f1f] font-medium py-2 px-4 rounded-lg ml-6">Admissions</a>
+                </nav>
+                <button class="md:hidden text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center justify-center hero-bg pt-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
+                    Engineering the Future with <br />
+                    <span id="typewriter" class="text-gradient"></span><span class="typewriter-cursor"></span>
+                </h1>
+                <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">
+                    Welcome to the Department of Artificial Intelligence & Machine Learning at Davanagere. We are at the forefront of research and education, dedicated to solving tomorrow's greatest challenges.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#about" class="w-full sm:w-auto bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 transform">
+                        Learn More About Us
+                    </a>
+                    <a href="#programs" class="w-full sm:w-auto btn-gradient text-[#5b1f1f] font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 transform">
+                        Explore Our Programs
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. About the Department -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">About the Department</h2>
+                </div>
+                <div class="glass-card p-8 md:p-12 scroll-animate">
+                    <p class="text-slate-300 leading-relaxed text-lg">
+                        Established in 2020, the Department of Artificial Intelligence and Machine Learning is committed to excellence in teaching, research, and innovation. We aim to impart quality education to students and produce skilled engineers who can meet the demands of industry and society. Our curriculum is designed to provide a strong foundation in core concepts of AI/ML, along with hands-on experience through state-of-the-art labs and industry-linked projects. We foster a vibrant learning environment that encourages curiosity, critical thinking, and a passion for lifelong learning.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. HoD’s Message -->
+        <section id="hod-message" class="py-20 hero-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">Head of Department's Message</h2>
+                </div>
+                <div class="glass-card p-8 flex flex-col md:flex-row items-center gap-8 scroll-animate faculty-card">
+                    <img src="image.webp" alt="Head of Department" class="w-48 h-48 rounded-full border-4 border-[#ecc35c] object-cover flex-shrink-0">
+                    <div>
+                        <p class="text-slate-300 italic leading-relaxed mb-4">
+                            "It is my great pleasure to welcome you to the AIML department. In this era of the fourth industrial revolution, AI and ML are not just technologies; they are the future. Our goal is to empower our students with the knowledge and skills to become leaders and innovators in this exciting field. We are proud of our dedicated faculty, our bright students, and our strong industry connections that provide a holistic and future-ready education."
+                        </p>
+                        <h4 class="text-xl font-bold text-white">Dr. Anand Prakash</h4>
+                        <p class="text-gradient">Head of Department, AIML</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3. Vision, Mission and Objectives -->
+        <section id="vision-mission" class="py-20">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">Vision, Mission & Objectives</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 text-center scroll-animate">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-[#ecc35c]/20 mb-6 mx-auto">
+                            <svg class="w-8 h-8 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gradient mb-4">Vision</h3>
+                        <p class="text-slate-300">To be a center of excellence in Artificial Intelligence and Machine Learning education and research, producing globally competent professionals who are innovative, ethical, and socially responsible.</p>
+                    </div>
+                    <div class="glass-card p-8 text-center scroll-animate" style="transition-delay: 150ms;">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-[#ecc35c]/20 mb-6 mx-auto">
+                           <svg class="w-8 h-8 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gradient mb-4">Mission</h3>
+                        <p class="text-slate-300">To provide a strong theoretical and practical foundation, foster research and innovation, and establish strong collaborations with industry.</p>
+                    </div>
+                    <div class="glass-card p-8 text-center scroll-animate" style="transition-delay: 300ms;">
+                        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-[#ecc35c]/20 mb-6 mx-auto">
+                            <svg class="w-8 h-8 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gradient mb-4">Objectives</h3>
+                        <p class="text-slate-300">To produce graduates who can design intelligent systems, promote ethical AI practices, and pursue higher studies and research.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Programs and Courses Offered -->
+        <section id="programs" class="py-20 hero-bg">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">Programs and Courses</h2>
+                </div>
+                <div class="space-y-8">
+                    <div class="glass-card p-8 scroll-animate">
+                        <h3 class="text-2xl font-bold text-white">B.Tech in Artificial Intelligence & Machine Learning</h3>
+                        <p class="text-slate-300 mt-2">A 4-year undergraduate program focusing on the core principles of AI, data structures, algorithms, machine learning, deep learning, NLP, and more.</p>
+                    </div>
+                    <div class="glass-card p-8 scroll-animate">
+                        <h3 class="text-2xl font-bold text-white">M.Tech in AI and Data Science</h3>
+                        <p class="text-slate-300 mt-2">A 2-year postgraduate program for advanced learning in specialized areas like reinforcement learning, computer vision, and big data analytics.</p>
+                    </div>
+                     <div class="glass-card p-8 scroll-animate">
+                        <h3 class="text-2xl font-bold text-white">Ph.D. Program</h3>
+                        <p class="text-slate-300 mt-2">Doctoral program for cutting-edge research in various domains of Artificial Intelligence and Machine Learning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Department Learning Resources -->
+        <section id="resources" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">Learning Resources</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 scroll-animate flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" /></svg></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">State-of-the-Art Labs</h3><p>Well-equipped labs with high-performance computing resources, GPUs, and the latest software for practical learning.</p></div>
+                    </div>
+                    <div class="glass-card p-8 scroll-animate flex items-start gap-4" style="transition-delay: 150ms;">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">Digital Library Access</h3><p>Access to leading journals like IEEE, ACM, Springer, and a vast collection of e-books on AI and related fields.</p></div>
+                    </div>
+                    <div class="glass-card p-8 scroll-animate flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">Industry-Standard Software</h3><p>Hands-on experience with tools like TensorFlow, PyTorch, Scikit-learn, and cloud platforms like AWS and Google Cloud.</p></div>
+                    </div>
+                    <div class="glass-card p-8 scroll-animate flex items-start gap-4" style="transition-delay: 150ms;">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9" /></svg></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">E-Learning Platforms</h3><p>Collaborations with platforms like Coursera and NPTEL to provide supplementary learning opportunities for students.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coordinator Sections -->
+        <section id="coordinators" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">Department Coordinators</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 7. Research -->
+                    <div id="research" class="glass-card p-8 scroll-animate">
+                         <h3 class="text-2xl font-bold text-gradient mb-4">Research & Publications</h3>
+                         <p class="text-slate-300 mb-4">Our faculty and students are actively involved in research, publishing in top conferences and journals. Key areas include NLP, Vision, and Healthcare AI.</p>
+                         <p class="font-bold text-white">Coordinator: Dr. Rohan Gupta</p>
+                         <p class="text-slate-400">rohan.g@university.edu</p>
+                    </div>
+                    <!-- 8. Student Projects -->
+                    <div id="projects" class="glass-card p-8 scroll-animate" style="transition-delay: 150ms;">
+                         <h3 class="text-2xl font-bold text-gradient mb-4">Student Projects</h3>
+                         <p class="text-slate-300 mb-4">We encourage innovative final year projects and product models. Recent projects include a crop disease detection app and a real-time sign language translator.</p>
+                         <p class="font-bold text-white">Coordinator: Prof. Sneha Reddy</p>
+                         <p class="text-slate-400">sneha.r@university.edu</p>
+                    </div>
+                    <!-- 9. Admissions -->
+                    <div id="admissions" class="glass-card p-8 scroll-animate" style="transition-delay: 300ms;">
+                         <h3 class="text-2xl font-bold text-gradient mb-4">Admissions</h3>
+                         <p class="text-slate-300 mb-4">Get information on the admission process, eligibility criteria, and important dates for our B.Tech and M.Tech programs.</p>
+                         <p class="font-bold text-white">Coordinator: Prof. Vikram Singh</p>
+                         <p class="text-slate-400">vikram.s@university.edu</p>
+                    </div>
+                    <!-- 10. IQAC -->
+                    <div id="iqac" class="glass-card p-8 scroll-animate">
+                         <h3 class="text-2xl font-bold text-gradient mb-4">IQAC Documents</h3>
+                         <p class="text-slate-300 mb-4">Access Internal Quality Assurance Cell documents, including program outcomes, course plans, and accreditation reports.</p>
+                         <p class="font-bold text-white">Coordinator: Dr. Priya Sharma</p>
+                         <p class="text-slate-400">priya.s@university.edu</p>
+                    </div>
+                    <!-- 11. Placements -->
+                     <div id="placements" class="glass-card p-8 scroll-animate" style="transition-delay: 150ms;">
+                         <h3 class="text-2xl font-bold text-gradient mb-4">Placements</h3>
+                         <p class="text-slate-300 mb-4">Our students are placed in top companies like Google, Microsoft, and Amazon, as well as high-growth startups in the AI space. We provide extensive training and support.</p>
+                         <p class="font-bold text-white">Coordinator: Mr. Rajesh Kumar</p>
+                         <p class="text-slate-400">rajesh.k@university.edu</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12 & 13. Achievements -->
+        <section id="achievements" class="py-20 hero-bg">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">Achievements</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="scroll-animate">
+                        <h3 class="text-2xl font-bold text-gradient mb-6 text-center">Faculty Achievements</h3>
+                        <div class="space-y-4">
+                            <div class="glass-card p-4">Dr. Priya Sharma received the "Best Paper Award" at the International Conference on NLP 2024.</div>
+                             <div class="glass-card p-4">Dr. Rohan Gupta was awarded a research grant of ₹20 Lakhs for a project on medical imaging.</div>
+                        </div>
+                    </div>
+                     <div class="scroll-animate" style="transition-delay: 150ms;">
+                        <h3 class="text-2xl font-bold text-gradient mb-6 text-center">Student Achievements</h3>
+                        <div class="space-y-4">
+                            <div class="glass-card p-4">Team "Neural Ninjas" won the Smart India Hackathon 2025 for their AI-based waste management solution.</div>
+                             <div class="glass-card p-4">Ms. Aishwarya Rao (Final Year) secured an internship at Google DeepMind.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. Department Alumni -->
+        <section id="alumni" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 scroll-animate">
+                    <h2 class="text-4xl font-bold text-white">Our Alumni</h2>
+                    <p class="mt-4 text-lg text-slate-400">Our graduates are making a difference across the globe.</p>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 scroll-animate">
+                        <p class="italic text-slate-300">"The AIML department provided me with a fantastic foundation. The hands-on projects and supportive faculty were instrumental in landing my dream job as a Machine Learning Engineer."</p>
+                        <div class="mt-4 font-bold text-white">- Sameer Verma, Batch of 2024</div>
+                        <div class="text-gradient">ML Engineer, TechCorp Inc.</div>
+                    </div>
+                     <div class="glass-card p-8 scroll-animate" style="transition-delay: 150ms;">
+                        <p class="italic text-slate-300">"The research opportunities here are incredible. I was able to publish my work as an undergraduate, which was a huge advantage when applying for my Master's program at a top US university."</p>
+                        <div class="mt-4 font-bold text-white">- Neha Patel, Batch of 2023</div>
+                        <div class="text-gradient">M.S. Student, Carnegie Mellon University</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#5b1f1f] border-t border-[#ecc35c]/30">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row justify-center items-center md:items-start text-center md:text-left gap-16">
+                <div>
+                    <h3 class="text-lg font-semibold text-white">Department of Artifical Intelligence</h3>
+                    <h3 class="text-lg font-semibold text-white">& Machine Learning</h3>
+                    <p class="mt-2 text-slate-400">GM University, Davanagere</p>
+                    <p class="text-slate-400">Post Box No. 4, PB Road,</p>
+                    <p class="text-slate-400">Davangere – 577006</p>
+                </div>
+                 <div>
+                    <h3 class="text-lg font-semibold text-white">Contact us:</h3>
+                    <p class="mt-2 text-slate-400">Email: fet.scst.dept.aiml@gmail.com</p>
+                    <p class="text-slate-400">Phone: +91 63612 19778</p>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-[#ecc35c]/30 pt-6 text-center text-slate-500 text-sm">
+                <p>&copy; 2025 AIML Department, GM University, Davanagere. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Typewriter effect for the hero section
+        const words = ["Artificial Intelligence.", "Machine Learning."];
+        let i = 0;
+        let j = 0;
+        let currentWord = "";
+        let isDeleting = false;
+        const typewriterElement = document.getElementById('typewriter');
+
+        function type() {
+            if (!typewriterElement) return;
+            currentWord = words[i];
+            if (isDeleting) {
+                j--;
+                typewriterElement.textContent = currentWord.substring(0, j);
+            } else {
+                j++;
+                typewriterElement.textContent = currentWord.substring(0, j);
+            }
+
+            if (!isDeleting && j === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+            } else if (isDeleting && j === 0) {
+                isDeleting = false;
+                i++;
+                if (i === words.length) {
+                    i = 0;
+                }
+                setTimeout(type, 500);
+            } else {
+                let typeSpeed = isDeleting ? 70 : 150;
+                setTimeout(type, typeSpeed);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+           setTimeout(type, 1000);
+            
+            // --- Scroll Animation Logic ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const elementsToAnimate = document.querySelectorAll('.scroll-animate');
+            elementsToAnimate.forEach(el => observer.observe(el));
+
+            // --- Header Scroll Logic ---
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+            });
+
+            // --- Particle Canvas Logic ---
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+
+                const setupCanvas = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+
+                class Particle {
+                    constructor(x, y, directionX, directionY, size, color) {
+                        this.x = x;
+                        this.y = y;
+                        this.directionX = directionX;
+                        this.directionY = directionY;
+                        this.size = size;
+                        this.color = color;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                    }
+                    update() {
+                        if (this.x > canvas.width || this.x < 0) {
+                            this.directionX = -this.directionX;
+                        }
+                        if (this.y > canvas.height || this.y < 0) {
+                            this.directionY = -this.directionY;
+                        }
+                        this.x += this.directionX;
+                        this.y += this.directionY;
+                        this.draw();
+                    }
+                }
+
+                const init = () => {
+                    particles = [];
+                    let numberOfParticles = (canvas.height * canvas.width) / 12000;
+                    for (let i = 0; i < numberOfParticles; i++) {
+                        let size = (Math.random() * 2) + 0.5;
+                        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                        let directionX = (Math.random() * .4) - .2;
+                        let directionY = (Math.random() * .4) - .2;
+                        let color = 'rgba(236, 195, 92, 0.3)';
+                        particles.push(new Particle(x, y, directionX, directionY, size, color));
+                    }
+                };
+
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, innerWidth, innerHeight);
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                    }
+                };
+
+                window.addEventListener('resize', () => {
+                    setupCanvas();
+                    init();
+                });
+                
+                setupCanvas();
+                init();
+                animate();
+            }
+        });
+    </script>
+
+</body>
+</html>
