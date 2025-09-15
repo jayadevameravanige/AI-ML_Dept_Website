@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;88&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -45,7 +45,6 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
-        
         .scroll-animate {
             opacity: 0;
             transform: translateY(30px);
@@ -55,33 +54,27 @@
             opacity: 1;
             transform: translateY(0);
         }
-        
         .text-gradient {
             background: linear-gradient(to bottom, #ecc35c, #f7f3b7, #ecc35c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
         .btn-gradient {
              background-image: linear-gradient(to right, #ecc35c, #f7f3b7, #ecc35c);
              background-size: 200% auto;
              transition: background-position 0.5s;
         }
-
         .btn-gradient:hover {
             background-position: right center;
         }
-
         header {
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
-
         .header-scrolled {
             background-color: #5b1f1f/80;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
-
         .faculty-card {
             overflow: hidden;
         }
@@ -91,7 +84,6 @@
         .faculty-card:hover img {
             transform: scale(1.1);
         }
-
         .glass-card .animated-icon {
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -122,7 +114,6 @@
             opacity: 1;
             transform: scale(1);
         }
-
         .dropdown-menu {
             opacity: 0;
             visibility: hidden;
@@ -134,25 +125,23 @@
             visibility: visible;
             transform: translateY(0);
         }
-
     </style>
 </head>
 <body class="antialiased" id="top">
     <canvas id="particle-canvas" class="fixed top-0 left-0 w-full h-full z-[-1]"></canvas>
 
-    <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-[#5b1f1f]/30 backdrop-blur-md">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-white">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
                     <a href="index.html" class="text-2xl font-bold text-white">
-                    <span class="text-gradient">AI</span>ML Dept.
+                        <span class="text-gradient">AI</span>ML Dept.
+                    </a>
                 </div>
-                <nav class="hidden md:flex items-center space-x-2">
+                 <nav class="hidden md:flex items-center space-x-2">
                     <a href="#about" class="nav-link text-slate-300 hover:text-[#ecc35c]">About</a>
                     <a href="#programs" class="nav-link text-slate-300 hover:text-[#ecc35c]">Programs</a>
                     <a href="#research" class="nav-link text-slate-300 hover:text-[#ecc35c]">Research</a>
-                    <!-- Faculty Dropdown -->
                     <div class="relative dropdown">
                         <button class="nav-link text-slate-300 hover:text-[#ecc35c] flex items-center">
                             Faculty
@@ -167,25 +156,52 @@
                     <a href="#" class="nav-link text-slate-300 hover:text-[#ecc35c]">Rooms</a>
                     <a href="https://gmu.ac.in/public/admission-card/branch/ai.html" class="btn-gradient text-[#5b1f1f] font-medium py-2 px-4 rounded-lg ml-6">Admissions</a>
                 </nav>
-                <button class="md:hidden text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#ecc35c]">
+                        <span class="sr-only">Open main menu</span>
+                        <svg id="menu-icon-open" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="menu-icon-close" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+             <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#about" class="block mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">About</a>
+                    <a href="#programs" class="block mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">Programs</a>
+                    <a href="#research" class="block mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">Research</a>
+                    
+                    <div>
+                        <button id="mobile-faculty-button" class="w-full flex justify-between items-center text-left mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">
+                            <span>Faculty</span>
+                            <svg class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="mobile-faculty-submenu" class="hidden mt-1 pl-4 space-y-1">
+                            <a href="hod.html" class="block mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-sm font-medium">Head of the Department</a>
+                            <a href="assprof.html" class="block mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-sm font-medium">Assistant Professors</a>
+                            <a href="labtechnatt.html" class="block mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-sm font-medium">Lab Technicians & Attenders</a>
+                        </div>
+                    </div>
+
+                    <a href="#" class="block mobile-nav-link text-slate-300 hover:text-[#ecc35c] hover:bg-white/10 px-3 py-2 rounded-md text-base font-medium">Rooms</a>
+                    <a href="https://gmu.ac.in/public/admission-card/branch/ai.html" class="block mt-4 text-center btn-gradient text-[#5b1f1f] font-bold py-2 px-4 rounded-lg">Admissions</a>
+                </div>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="min-h-screen flex items-center justify-center hero-bg pt-20">
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight">
                     Engineering the Future with <br />
                     <span id="typewriter" class="text-gradient"></span><span class="typewriter-cursor"></span>
                 </h1>
-                <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-slate-300">
-                    Welcome to the Department of Artificial Intelligence & Machine Learning at Davanagere. We are at the forefront of research and education, dedicated to solving tomorrow's greatest challenges.
+                <p class="mt-6 text-base md:text-xl max-w-3xl mx-auto text-slate-300">
+                    Welcome to the Department of Artificial Intelligence & Machine Learning at GM University. We are at the forefront of research and education, dedicated to solving tomorrow's greatest challenges.
                 </p>
                 <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
                     <a href="#about" class="w-full sm:w-auto bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 transform">
@@ -198,30 +214,28 @@
             </div>
         </section>
 
-        <!-- 1. About the Department -->
         <section id="about" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 scroll-animate">
                     <h2 class="text-4xl font-bold text-white">About the Department</h2>
                 </div>
                 <div class="glass-card p-8 md:p-12 scroll-animate">
-                    <p class="text-slate-300 leading-relaxed text-lg">
+                    <p class="text-slate-300 leading-relaxed text-base md:text-lg">
                         Established in 2020, the Department of Artificial Intelligence and Machine Learning is committed to excellence in teaching, research, and innovation. We aim to impart quality education to students and produce skilled engineers who can meet the demands of industry and society. Our curriculum is designed to provide a strong foundation in core concepts of AI/ML, along with hands-on experience through state-of-the-art labs and industry-linked projects. We foster a vibrant learning environment that encourages curiosity, critical thinking, and a passion for lifelong learning.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- 2. HoD’s Message -->
         <section id="hod-message" class="py-20 hero-bg">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 scroll-animate">
                     <h2 class="text-4xl font-bold text-white">Head of Department's Message</h2>
                 </div>
                 <div class="glass-card p-8 flex flex-col md:flex-row items-center gap-8 scroll-animate faculty-card">
-                    <img src="image.webp" alt="Head of Department" class="w-48 h-48 rounded-full border-4 border-[#ecc35c] object-cover flex-shrink-0">
+                    <img src="image.webp" alt="Head of Department" class="w-36 h-36 md:w-48 md:h-48 rounded-full border-4 border-[#ecc35c] object-cover flex-shrink-0">
                     <div>
-                        <p class="text-slate-300 italic leading-relaxed mb-4">
+                        <p class="text-slate-300 italic leading-relaxed mb-4 text-base md:text-lg">
                             "It is my great pleasure to welcome you to the AIML department. In this era of the fourth industrial revolution, AI and ML are not just technologies; they are the future. Our goal is to empower our students with the knowledge and skills to become leaders and innovators in this exciting field. We are proud of our dedicated faculty, our bright students, and our strong industry connections that provide a holistic and future-ready education."
                         </p>
                         <h4 class="text-xl font-bold text-white">Dr. Anand Prakash</h4>
@@ -231,7 +245,6 @@
             </div>
         </section>
         
-        <!-- 3. Vision, Mission and Objectives -->
         <section id="vision-mission" class="py-20">
              <div class="container mx-auto px-6">
                 <div class="text-center mb-12 scroll-animate">
@@ -263,7 +276,6 @@
             </div>
         </section>
 
-        <!-- 4. Programs and Courses Offered -->
         <section id="programs" class="py-20 hero-bg">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 scroll-animate">
@@ -286,7 +298,6 @@
             </div>
         </section>
 
-        <!-- 5. Department Learning Resources -->
         <section id="resources" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 scroll-animate">
@@ -295,61 +306,55 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="glass-card p-8 scroll-animate flex items-start gap-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" /></svg></div>
-                        <div><h3 class="text-xl font-bold text-gradient mb-2">State-of-the-Art Labs</h3><p>Well-equipped labs with high-performance computing resources, GPUs, and the latest software for practical learning.</p></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">State-of-the-Art Labs</h3><p class="text-slate-300">Well-equipped labs with high-performance computing resources, GPUs, and the latest software for practical learning.</p></div>
                     </div>
                     <div class="glass-card p-8 scroll-animate flex items-start gap-4" style="transition-delay: 150ms;">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div>
-                        <div><h3 class="text-xl font-bold text-gradient mb-2">Digital Library Access</h3><p>Access to leading journals like IEEE, ACM, Springer, and a vast collection of e-books on AI and related fields.</p></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">Digital Library Access</h3><p class="text-slate-300">Access to leading journals like IEEE, ACM, Springer, and a vast collection of e-books on AI and related fields.</p></div>
                     </div>
                     <div class="glass-card p-8 scroll-animate flex items-start gap-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg></div>
-                        <div><h3 class="text-xl font-bold text-gradient mb-2">Industry-Standard Software</h3><p>Hands-on experience with tools like TensorFlow, PyTorch, Scikit-learn, and cloud platforms like AWS and Google Cloud.</p></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">Industry-Standard Software</h3><p class="text-slate-300">Hands-on experience with tools like TensorFlow, PyTorch, Scikit-learn, and cloud platforms like AWS and Google Cloud.</p></div>
                     </div>
                     <div class="glass-card p-8 scroll-animate flex items-start gap-4" style="transition-delay: 150ms;">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-lg bg-[#ecc35c]/20"><svg class="w-6 h-6 text-[#ecc35c] animated-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m0 18a9 9 0 009-9m-9 9a9 9 0 00-9-9" /></svg></div>
-                        <div><h3 class="text-xl font-bold text-gradient mb-2">E-Learning Platforms</h3><p>Collaborations with platforms like Coursera and NPTEL to provide supplementary learning opportunities for students.</p></div>
+                        <div><h3 class="text-xl font-bold text-gradient mb-2">E-Learning Platforms</h3><p class="text-slate-300">Collaborations with platforms like Coursera and NPTEL to provide supplementary learning opportunities for students.</p></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Coordinator Sections -->
         <section id="coordinators" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 scroll-animate">
                     <h2 class="text-4xl font-bold text-white">Department Coordinators</h2>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- 7. Research -->
                     <div id="research" class="glass-card p-8 scroll-animate">
                          <h3 class="text-2xl font-bold text-gradient mb-4">Research & Publications</h3>
                          <p class="text-slate-300 mb-4">Our faculty and students are actively involved in research, publishing in top conferences and journals. Key areas include NLP, Vision, and Healthcare AI.</p>
                          <p class="font-bold text-white">Coordinator: Dr. Rohan Gupta</p>
                          <p class="text-slate-400">rohan.g@university.edu</p>
                     </div>
-                    <!-- 8. Student Projects -->
                     <div id="projects" class="glass-card p-8 scroll-animate" style="transition-delay: 150ms;">
                          <h3 class="text-2xl font-bold text-gradient mb-4">Student Projects</h3>
                          <p class="text-slate-300 mb-4">We encourage innovative final year projects and product models. Recent projects include a crop disease detection app and a real-time sign language translator.</p>
                          <p class="font-bold text-white">Coordinator: Prof. Sneha Reddy</p>
                          <p class="text-slate-400">sneha.r@university.edu</p>
                     </div>
-                    <!-- 9. Admissions -->
                     <div id="admissions" class="glass-card p-8 scroll-animate" style="transition-delay: 300ms;">
                          <h3 class="text-2xl font-bold text-gradient mb-4">Admissions</h3>
                          <p class="text-slate-300 mb-4">Get information on the admission process, eligibility criteria, and important dates for our B.Tech and M.Tech programs.</p>
                          <p class="font-bold text-white">Coordinator: Prof. Vikram Singh</p>
                          <p class="text-slate-400">vikram.s@university.edu</p>
                     </div>
-                    <!-- 10. IQAC -->
                     <div id="iqac" class="glass-card p-8 scroll-animate">
                          <h3 class="text-2xl font-bold text-gradient mb-4">IQAC Documents</h3>
                          <p class="text-slate-300 mb-4">Access Internal Quality Assurance Cell documents, including program outcomes, course plans, and accreditation reports.</p>
                          <p class="font-bold text-white">Coordinator: Dr. Priya Sharma</p>
                          <p class="text-slate-400">priya.s@university.edu</p>
                     </div>
-                    <!-- 11. Placements -->
-                     <div id="placements" class="glass-card p-8 scroll-animate" style="transition-delay: 150ms;">
+                    <div id="placements" class="glass-card p-8 scroll-animate" style="transition-delay: 150ms;">
                          <h3 class="text-2xl font-bold text-gradient mb-4">Placements</h3>
                          <p class="text-slate-300 mb-4">Our students are placed in top companies like Google, Microsoft, and Amazon, as well as high-growth startups in the AI space. We provide extensive training and support.</p>
                          <p class="font-bold text-white">Coordinator: Mr. Rajesh Kumar</p>
@@ -359,7 +364,6 @@
             </div>
         </section>
 
-        <!-- 12 & 13. Achievements -->
         <section id="achievements" class="py-20 hero-bg">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-12 scroll-animate">
@@ -384,7 +388,6 @@
             </div>
         </section>
 
-        <!-- 14. Department Alumni -->
         <section id="alumni" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 scroll-animate">
@@ -407,7 +410,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-[#5b1f1f] border-t border-[#ecc35c]/30">
         <div class="container mx-auto px-6 py-12">
             <div class="flex flex-col md:flex-row justify-center items-center md:items-start text-center md:text-left gap-16">
@@ -431,43 +433,83 @@
     </footer>
 
     <script>
-        // Typewriter effect for the hero section
-        const words = ["Artificial Intelligence.", "Machine Learning."];
-        let i = 0;
-        let j = 0;
-        let currentWord = "";
-        let isDeleting = false;
-        const typewriterElement = document.getElementById('typewriter');
-
-        function type() {
-            if (!typewriterElement) return;
-            currentWord = words[i];
-            if (isDeleting) {
-                j--;
-                typewriterElement.textContent = currentWord.substring(0, j);
-            } else {
-                j++;
-                typewriterElement.textContent = currentWord.substring(0, j);
-            }
-
-            if (!isDeleting && j === currentWord.length) {
-                isDeleting = true;
-                setTimeout(type, 2000);
-            } else if (isDeleting && j === 0) {
-                isDeleting = false;
-                i++;
-                if (i === words.length) {
-                    i = 0;
-                }
-                setTimeout(type, 500);
-            } else {
-                let typeSpeed = isDeleting ? 70 : 150;
-                setTimeout(type, typeSpeed);
-            }
-        }
-        
+        // --- START OF UPDATED SCRIPT FOR RESPONSIVENESS ---
         document.addEventListener('DOMContentLoaded', function() {
-           setTimeout(type, 1000);
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-icon-open');
+            const closeIcon = document.getElementById('menu-icon-close');
+
+            const mobileFacultyButton = document.getElementById('mobile-faculty-button');
+            const mobileFacultySubmenu = document.getElementById('mobile-faculty-submenu');
+            const mobileFacultyArrow = mobileFacultyButton.querySelector('svg');
+
+            // --- Mobile Menu Toggle Logic ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+            
+            // --- Mobile Dropdown Toggle Logic ---
+            mobileFacultyButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent closing the main menu
+                mobileFacultySubmenu.classList.toggle('hidden');
+                mobileFacultyArrow.classList.toggle('rotate-180');
+            });
+
+            // --- Close menu when a link is clicked ---
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                     // Check if the link is part of the submenu trigger
+                    if (link.id !== 'mobile-faculty-button') {
+                        mobileMenu.classList.add('hidden');
+                        openIcon.classList.remove('hidden');
+                        closeIcon.classList.add('hidden');
+                    }
+                });
+            });
+
+            // --- END OF UPDATED SCRIPT ---
+
+
+            // Typewriter effect for the hero section
+            const words = ["Artificial Intelligence.", "Machine Learning."];
+            let i = 0;
+            let j = 0;
+            let currentWord = "";
+            let isDeleting = false;
+            const typewriterElement = document.getElementById('typewriter');
+
+            function type() {
+                if (!typewriterElement) return;
+                currentWord = words[i];
+                if (isDeleting) {
+                    j--;
+                    typewriterElement.textContent = currentWord.substring(0, j);
+                } else {
+                    j++;
+                    typewriterElement.textContent = currentWord.substring(0, j);
+                }
+
+                if (!isDeleting && j === currentWord.length) {
+                    isDeleting = true;
+                    setTimeout(type, 2000);
+                } else if (isDeleting && j === 0) {
+                    isDeleting = false;
+                    i++;
+                    if (i === words.length) {
+                        i = 0;
+                    }
+                    setTimeout(type, 500);
+                } else {
+                    let typeSpeed = isDeleting ? 70 : 150;
+                    setTimeout(type, typeSpeed);
+                }
+            }
+            
+            setTimeout(type, 1000);
             
             // --- Scroll Animation Logic ---
             const observer = new IntersectionObserver((entries) => {
@@ -565,6 +607,5 @@
             }
         });
     </script>
-
 </body>
 </html>
