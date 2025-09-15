@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIML Department - Future Forward</title>
+    <title>Department of Artificial Intelligence & Machine Learning - GM University</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -536,11 +536,11 @@
                     particles = [];
                     let numberOfParticles = (canvas.height * canvas.width) / 12000;
                     for (let i = 0; i < numberOfParticles; i++) {
-                        let size = (Math.random() * 2) + 0.5;
+                        let size = (Math.random() * 3) + 2;
                         let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
                         let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                        let directionX = (Math.random() * .4) - .2;
-                        let directionY = (Math.random() * .4) - .2;
+                        let directionX = (Math.random() * 4) - 2;
+                        let directionY = (Math.random() * 4) - 2;
                         let color = 'rgba(236, 195, 92, 0.3)';
                         particles.push(new Particle(x, y, directionX, directionY, size, color));
                     }
